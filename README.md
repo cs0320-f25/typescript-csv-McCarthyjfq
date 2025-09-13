@@ -34,7 +34,7 @@
 
     My initial ideas focused on extensibility like custom delimiters, error handling, data type validation and functionality such as handling commas in fields and mismatched headers. The LLM added ideas such as comment lines, trimming whitespace, duplicate headers, and large file handling, which I hadn’t considered. When prompting, if I provided more specified questions, it will center around these questions and answer in detail (such as considering developer experience). If I provided less information, its answer would be broader and it would give me more code examples. I resonated most with type casting and LLM's understanding of extensibility of developer expirence. I think there was nothing that I didn't resonate with.
 
-### 1340 Supplement
+- ### 1340 Supplement
 
     Singly linked list: it can be represented as a recursive structure where each node contains a value and a reference to the next node. The last node will be set to "null". Each node is defined as an object with a value field and a "next" field, which is either another node or "null". We can use ".nullable()" (I asked GPT) to enable null. This recursion is expressed in Zod with "z.lazy" so that the schema can safely refer to itself (I also learnt this from GPT). Thus, we will be able to respresent a linked list with a JSON structure containing "value" and "next" fields.
 
@@ -50,27 +50,27 @@
 
     This sprint emphasizes more from the view of users and developers through brainstorming and involves a lot of writing rather than simply writing codes and passing testcases. I was surprised by how complicated and how many edge cases exist in CSV files that seems really simple. I did encounter some bugs and difficulties. One is at the line 45 in the test file. When I was doing task C and changed the code, it gave me an error "Object is of type Unknown". It seemed like TS couldn't know results is string[][] when I didn't provide schema (schema is undefined). Then I realized I should let it know it's a string, so I added "<string[]>" to "const results = await parseCSV<string[]>(PEOPLE_CSV_PATH);" and it could work. Another difficulty was that I didn't know how to validate and transform CSV row because I couldn't know the structure of the CSV beforehand, so I asked GPT and knew that "._def.shape()" could help me get the shape of the CSV file, so I resolved this problem.
 
-#### Errors/Bugs:
+- #### Errors/Bugs:
     At the line 44 in the test file: const results = await parseCSV<string[]>(PEOPLE_CSV_PATH); if I removed "<string[]>", then there will be an error "Object is of type Unknown". I don't know if that's the correct behavior or it means my parser can't handle the case when schema is not provided.
 
-#### Tests:
+- #### Tests:
     Empty file: Ensures that parsing an empty CSV file returns an empty array.
     Header restriction: Verifies that header rows and subsequent data rows are parsed correctly.
     Whitespace: Confirms that extra spaces around values are trimmed during parsing.
     Name should be string and age should be int: Checks that names are strings and ages can be parsed as valid integers.
     Comma in between: Ensures that quoted fields containing commas are parsed as a single value.
 
-#### How To… 
+- #### How To… 
     use: "npm test" to test
 
-#### Team members and contributions (include cs logins):
+- #### Team members and contributions (include cs logins):
     N/A
 
-#### Collaborators (cslogins of anyone you worked with on this project and/or generative AI):
+- #### Collaborators (cslogins of anyone you worked with on this project and/or generative AI):
     Chat GPT
 
-#### Total estimated time it took to complete project:
+- #### Total estimated time it took to complete project:
     6 hours
 
-#### Link to GitHub Repo:  
-    
+- #### Link to GitHub Repo:  
+    https://github.com/cs0320-f25/typescript-csv-McCarthyjfq
