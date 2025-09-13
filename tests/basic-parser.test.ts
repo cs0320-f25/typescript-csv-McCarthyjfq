@@ -20,3 +20,36 @@ test("parseCSV yields only arrays", async () => {
     expect(Array.isArray(row)).toBe(true);
   }
 });
+
+test("Empty file", async () => {
+  const EMPTY_CSV_PATH = path.join(__dirname, "../data/empty.csv");
+  const results = await parseCSV(EMPTY_CSV_PATH);
+  expect(results).toEqual([]);
+});
+
+test("Header restriction", async () => {
+  const HEAD_CSV_PATH = path.join(__dirname, "../data/head.csv");
+  const results = await parseCSV(HEAD_CSV_PATH);
+  expect(results[0]).toEqual(["name", "age"]);
+  expect(results[1]).toEqual(["Felix", "22"]);
+});
+
+test("Whitespace", async () => {
+  const WHITESPACE_CSV_PATH = path.join(__dirname, "../data/whitespace.csv");
+  const results = await parseCSV(WHITESPACE_CSV_PATH);
+  expect(results[1]).toEqual(["Felix", "22"]);
+});
+
+test("Name should be string and age should be int", async () => {
+ const results = await parseCSV<string[]>(PEOPLE_CSV_PATH);
+  expect(typeof results[2][0]).toBe("string");
+  const age = results[2][1];
+  const parsed = Number.parseInt(age, 10);
+  expect(Number.isNaN(parsed)).toBe(false);
+});
+
+test("Comma in between", async () => {
+  const TEST1_CSV_PATH = path.join(__dirname, "../data/test1.csv");
+  const results = await parseCSV(TEST1_CSV_PATH);
+  expect(results[5]).toEqual(["Felix, Chiao", "22"]);
+});
